@@ -1,0 +1,23 @@
+make folder for the project.
+Go to the folder and type cmd
+create django virtual environment
+
+python -m venv djangoenv
+
+Then go to 
+
+djangoenv\Scripts\activate 
+then back to folder
+
+pip install django
+
+django-admin startproject hvacProject
+
+
+python manage.py startapp HVAC
+
+then workon app
+
+main urls.py --> app urls.py --> app views.py
+
+

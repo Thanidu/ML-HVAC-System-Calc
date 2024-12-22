@@ -1,0 +1,105 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absorption Chiller Plant Calculator</title>
+    <link rel="stylesheet" href="{% static 'styles.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Absorption Chiller Plant Calculator</h1>
+    </header>
+
+    <div class="main-container">
+        <!-- Left Side - Constants -->
+        <div class="panel constants-panel">
+            <div class="panel-header">
+                <h2>Constant Parameters</h2>
+            </div>
+            <div class="panel-content">
+                <table class="constants-table">
+                    <tr><td>Absorber Temp (C)</td><td class="value">40</td></tr>
+                    <tr><td>Mass Fraction (LiBr)</td><td class="value">0.574</td></tr>
+                    <tr><td>Mass Fraction (H<sub>2</sub>O)</td><td class="value">0.426</td></tr>
+                    <tr><td>Chiller In Flow Rate (cum/hr)</td><td class="value">100</td></tr>
+                    <tr><td>Hot Liquid In Flow Rate (kg/hr)</td><td class="value">2</td></tr>
+                    <tr><td>Hot Liquid Pressure (kPa)</td><td class="value">100</td></tr>
+                    <tr><td>Chiller Input Pressure (kPa)</td><td class="value">20</td></tr>
+                    <tr><td>Chiller Input Temp (C)</td><td class="value">12</td></tr>
+                    <tr><td>Pump Efficiency</td><td class="value">0.95</td></tr>
+                    <tr><td>Expansion Valve 1 Pressure (kPa)</td><td class="value">0.7</td></tr>
+                    <tr><td>Expansion Valve 2 Pressure (kPa)</td><td class="value">0.7</td></tr>
+                    <tr><td>Condenser Out Temp (C)</td><td class="value">40</td></tr>
+                    <tr><td>Generator Input (C)</td><td class="value">350</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Side - Input Form and Results -->
+        <div class="right-content">
+            <div class="panel input-panel">
+                <div class="panel-header">
+                    <h2>Input Parameters</h2>
+                </div>
+                <div class="panel-content">
+                    <form id="chillerForm" onsubmit="submitForm(event)">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <label for="generatorDuty">Generator Duty (kW)</label>
+                            <input type="number" id="generatorDuty" name="generatorDuty" step="0.01" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="pumpPressure">Pump Pressure (kPa)</label>
+                            <input type="number" id="pumpPressure" name="pumpPressure" step="0.01" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="massFlowRate">Mass Flow Rate (kg/hr)</label>
+                            <input type="number" id="massFlowRate" name="massFlowRate" step="0.01" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="chillerInTemp">Chiller Input Temperature (C)</label>
+                            <input type="number" id="chillerInTemp" name="chillerInTemp" step="0.01" required>
+                        </div>
+
+                        <button type="submit">Calculate Results</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel results-panel">
+                <div class="panel-header">
+                    <h2>Results</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-label">Chiller Output Temperature</div>
+                            <div class="result-value"><span id="outputTemp">--</span> °C</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Duty of Evaporator</div>
+                            <div class="result-value"><span id="evaporatorDuty">--</span> kW</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Generator Output</div>
+                            <div class="result-value"><span id="generatorOutput">--</span> °C</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">COP</div>
+                            <div class="result-value"><span id="cop">--</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
