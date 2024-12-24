@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hvacProject.wsgi.application'
+WSGI_APPLICATION = 'hvacmlweb.azurewebsites.net'
 
 
 # Database
